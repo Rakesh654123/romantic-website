@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Hamara Ghar — BGMI Love</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#ff5c8a;
+  --violet:#a78bfa;
+  --gold:#ffd166;
+  --ink:#0b0b12;
+  --ink2:#151520;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial;
+  color:#fff;
+  background:
+    radial-gradient(circle at top left, #2a1230 0 30%, transparent 40%),
+    radial-gradient(circle at bottom right, #1b1b2b 0 30%, transparent 40%),
+    linear-gradient(120deg, var(--ink), var(--ink2));
+  overflow-x:hidden;
+}
+.bg-stars:before{
+  content:"";
+  position:fixed;inset:0;pointer-events:none;opacity:.25;
+  background:url(https://www.transparenttextures.com/patterns/stardust.png) repeat;
+  animation:twinkle 10s linear infinite
+}
+@keyframes twinkle{from{background-position:0 0}to{background-position:200px 200px}}
+
+.container{max-width:1100px;margin:0 auto;padding:24px}
+.hero{
+  min-height:85vh;display:grid;place-items:center;position:relative;perspective:1000px
+}
+.scene{
+  width:min(920px,95vw);aspect-ratio:16/9;border-radius:24px;position:relative;overflow:hidden;
+  background:linear-gradient(135deg, rgba(255,92,138,.12), rgba(167,139,250,.12));
+  box-shadow:0 30px 80px rgba(0,0,0,.45), inset 0 0 0 1px rgba(255,255,255,.06);
+  transform-style:preserve-3d;transition:transform .2s ease-out
+}
+.layer{position:absolute;inset:0;transform-style:preserve-3d}
+.gridglow{
+  background:
+    linear-gradient(transparent 60%, rgba(255,92,138,.25)),
+    repeating-linear-gradient(0deg, rgba(255,255,255,.07) 0 1px, transparent 1px 40px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,.07) 0 1px, transparent 1px 40px);
+  filter:blur(1px)
+}
+.hearts{pointer-events:none}
+.heart{
+  position:absolute;width:22px;height:22px;border-radius:50% 50% 0 50%;
+  transform:rotate(45deg);opacity:.85;animation:floatUp linear infinite;
+  box-shadow:0 0 12px rgba(255,92,138,.7),0 0 22px rgba(167,139,250,.5)
+}
+.heart:after,.heart:before{
+  content:"";
+  position:absolute;background:inherit;border-radius:50%;
+}
+.heart:before{width:22px;height:22px;left:-11px;top:0}
+.heart:after{width:22px;height:22px;left:0;top:-11px}
+@keyframes floatUp{from{transform:translateY(30px) translateZ(0) rotate(45deg)}to{transform:translateY(-900px) translateZ(0) rotate(45deg)}}
+
+.titleWrap{
+  position:absolute;inset:auto 0 6% 0;display:grid;place-items:center;transform:translateZ(120px)
+}
+h1.title{
+  margin:0;font-family:"Playfair Display",serif;font-weight:700;letter-spacing:1px;
+  font-size:clamp(32px,6vw,64px);text-align:center;
+  background:linear-gradient(45deg,var(--pink),var(--violet),var(--gold));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  text-shadow:0 0 20px rgba(255,92,138,.45),0 0 34px rgba(167,139,250,.35)
+}
+.subtitle{
+  margin-top:6px;font-size:clamp(14px,2.2vw,18px);opacity:.9
+}
+.duoTag{
+  position:absolute;top:22px;left:22px;padding:8px 14px;border-radius:999px;
+  background:rgba(255,255,255,.1);backdrop-filter:blur(6px);transform:translateZ(140px);
+  font-weight:600;box-shadow:0 8px 20px rgba(0,0,0,.25)
+}
+.crate{
+  position:absolute;right:-8%;bottom:-15%;width:min(320px,40vw);aspect-ratio:1/1;transform:translateZ(80px) rotateZ(-8deg)
+}
+.crate svg{width:100%;height:100%;filter:drop-shadow(0 24px 40px rgba(0,0,0,.4))}
+.ctaBar{position:absolute;right:22px;top:22px;display:flex;gap:10px;transform:translateZ(160px)}
+.btn{
+  border:0;padding:10px 16px;border-radius:999px;font-weight:700;color:#fff;background:linear-gradient(45deg,var(--pink),var(--violet));
+  box-shadow:0 10px 24px rgba(167,139,250,.35);cursor:pointer;transition:transform .15s ease, box-shadow .15s ease
+}
+.btn:hover{transform:translateY(-2px);box-shadow:0 16px 30px rgba(167,139,250,.5)}
+.btn.ghost{background:transparent;box-shadow:inset 0 0 0 2px rgba(255,255,255,.35)}
+.section{
+  padding:56px 20px
+}
+.section h2{
+  font-family:"Playfair Display",serif;font-size:clamp(26px,4.4vw,40px);text-align:center;margin:0 0 18px
+}
+.section p{opacity:.92;text-align:center;margin:0 auto 20px;max-width:740px}
+.cards{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;max-width:980px;margin:24px auto 0
+}
+.card{
+  background:rgba(255,255,255,.06);border-radius:18px;padding:18px;min-height:140px;
+  box-shadow:0 10px 26px rgba(0,0,0,.3), inset 0 0 0 1px rgba(255,255,255,.05);
+  transform-style:preserve-3d;transform:perspective(900px) rotateY(0deg);
+  transition:transform .35s ease, box-shadow .35s ease
+}
+.card:hover{transform:perspective(900px) rotateY(7deg) translateZ(12px)}
+.card h3{margin:0 0 6px;font-size:18px;color:#ffd6f9}
+.card p{margin:0;font-size:14px}
+.customize{
+  position:fixed;right:18px;bottom:18px;z-index:20
+}
+.modal{
+  position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;place-items:center;padding:16px;z-index:30
+}
+.modalInner{
+  width:min(680px,92vw);background:#1a1625;border-radius:16px;padding:18px;box-shadow:0 20px 60px rgba(0,0,0,.55)
+}
+.modalInner h4{margin:6px 0 10px}
+.modalInner textarea{width:100%;height:120px;border-radius:12px;border:1px solid rgba(255,255,255,.15);background:#0f0d16;color:#fff;padding:10px;font-family:inherit}
+.modalInner .row{display:flex;gap:10px;justify-content:flex-end;margin-top:10px}
+.proposal{
+  padding:70px 20px 90px;background:
+   radial-gradient(circle at 20% 10%, rgba(255,92,138,.12), transparent 40%),
+   radial-gradient(circle at 80% 90%, rgba(167,139,250,.12), transparent 40%)
+}
+.love3d{
+  font-family:"Playfair Display",serif;text-align:center;margin:0;
+  font-size:clamp(42px,7vw,90px);
+  background:linear-gradient(30deg,var(--pink),var(--violet),var(--gold));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  text-shadow:0 16px 40px rgba(0,0,0,.5)
+}
+.proposal p{max-width:820px;margin:10px auto 24px;text-align:center;opacity:.95}
+.formWrap{
+  max-width:720px;margin:0 auto;background:rgba(255,255,255,.06);padding:18px;border-radius:16px;
+  box-shadow:0 12px 30px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,255,255,.06)
+}
+.form{display:grid;gap:12px}
+.input, textarea{
+  width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.18);
+  background:#0f0d16;color:#fff;font-size:14px
+}
+textarea{min-height:120px;resize:vertical}
+.note{font-size:12px;opacity:.7;text-align:center;margin-top:8px}
+footer{padding:36px 20px;text-align:center;opacity:.6}
+</style>
+</head>
+<body>
+<div class="bg-stars"></div>
+
+<section class="container hero">
+  <div class="scene" id="scene">
+    <div class="layer gridglow" style="transform:translateZ(-120px)"></div>
+    <div class="layer hearts" id="hearts"></div>
+    <div class="duoTag">BGMI Duo • Level ❤ Max</div>
+    <div class="ctaBar">
+      <button class="btn ghost" id="playPause">Pause Hearts</button>
+      <a class="btn" href="#messages">Memories</a>
+    </div>
+    <div class="crate" aria-hidden="true">
+      <svg viewBox="0 0 512 512">
+        <defs>
+          <linearGradient id="g1" x1="0" x2="1">
+            <stop offset="0" stop-color="#ff5c8a"/><stop offset="1" stop-color="#a78bfa"/>
+          </linearGradient>
+        </defs>
+        <rect x="56" y="120" width="400" height="320" rx="22" fill="url(#g1)"/>
+        <rect x="56" y="200" width="400" height="34" fill="rgba(0,0,0,.25)"/>
+        <rect x="56" y="260" width="400" height="34" fill="rgba(0,0,0,.22)"/>
+        <rect x="56" y="320" width="400" height="34" fill="rgba(0,0,0,.2)"/>
+        <g fill="rgba(255,255,255,.9)">
+          <rect x="96" y="120" width="28" height="320" rx="8"/>
+          <rect x="196" y="120" width="28" height="320" rx="8"/>
+          <rect x="288" y="120" width="28" height="320" rx="8"/>
+          <rect x="388" y="120" width="28" height="320" rx="8"/>
+        </g>
+      </svg>
+    </div>
+    <div class="titleWrap">
+      <h1 class="title">We met in BGMI, fell in love in real life</h1>
+      <div class="subtitle">From lobby chats to late-night clutches — every match brought me closer to you.</div>
+    </div>
+  </div>
+</section>
+
+<section id="messages" class="container section">
+  <h2>For You, From My Heart</h2>
+  <p>These lines are for you. I can tweak them anytime to make them even more “us”.</p>
+  <div class="cards" id="cards"></div>
+</section>
+
+<section class="proposal">
+  <h2 class="love3d">I LOVE YOU</h2>
+  <p>Will you be my duo forever — in BGMI and in life? Choose your words for me below, I’ll treasure them.</p>
+
+  <div class="formWrap">
+    <form name="proposal" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="thank-you.html" class="form" id="loveForm">
+      <input type="hidden" name="form-name" value="proposal">
+      <p style="display:none">
+        <label>Don’t fill this out: <input name="bot-field"></label>
+      </p>
+      <input class="input" type="text" name="her_name" placeholder="Your name (optional)">
+      <input class="input" type="email" name="her_email" placeholder="Your email (optional)">
+      <textarea name="her_message" placeholder="Write what you think about me…"></textarea>
+      <button type="submit" class="btn">Send your words 💌</button>
+      <div class="note">After deployment on Netlify, this will email me your message.</div>
+    </form>
+  </div>
+</section>
+
+<footer>Made with ❤ for us • BGMI Duo</footer>
+
+<button class="btn customize" id="openEditor" title="Customize lines">✎ Customize Lines</button>
+
+<div class="modal" id="editor">
+  <div class="modalInner">
+    <h4>Edit the lines (one per line)</h4>
+    <textarea id="linesInput"></textarea>
+    <div class="row">
+      <button class="btn ghost" id="cancelEdit">Cancel</button>
+      <button class="btn" id="saveLines">Save</button>
+    </div>
+    <div class="note">Saved locally on your device. Set once then deploy.</div>
+  </div>
+</div>
+
+<script>
+const scene=document.getElementById('scene');
+let tiltX=0,tiltY=0,isPaused=false;
+
+scene.addEventListener('pointermove',e=>{
+  const r=scene.getBoundingClientRect();
+  const cx=r.left+r.width/2, cy=r.top+r.height/2;
+  const dx=(e.clientX-cx)/r.width, dy=(e.clientY-cy)/r.height;
+  tiltX=dy*-10; tiltY=dx*12;
+  scene.style.transform=`rotateX(${tiltX}deg) rotateY(${tiltY}deg)`
+});
+scene.addEventListener('pointerleave',()=>{scene.style.transform='rotateX(0) rotateY(0)'});
+
+const heartsWrap=document.getElementById('hearts');
+function spawnHearts(){
+  const count=16;
+  for(let i=0;i<count;i++){
+    const h=document.createElement('div');
+    h.className='heart';
+    const hue = 330 + Math.random()*40;
+    h.style.background=`hsl(${hue} 90% 60%)`;
+    h.style.left=Math.random()*100+'%';
+    h.style.bottom=(-40+Math.random()*40)+'px';
+    h.style.animationDuration=(10+Math.random()*14)+'s';
+    h.style.animationDelay=(-Math.random()*12)+'s';
+    h.style.filter='saturate(1.1)';
+    heartsWrap.appendChild(h);
+  }
+}
+spawnHearts();
+
+const playBtn=document.getElementById('playPause');
+playBtn.addEventListener('click',()=>{
+  isPaused=!isPaused;
+  heartsWrap.style.animationPlayState=isPaused?'paused':'running';
+  document.querySelectorAll('.heart').forEach(el=>el.style.animationPlayState=isPaused?'paused':'running');
+  playBtn.textContent=isPaused?'Play Hearts':'Pause Hearts';
+});
+
+const defaultLines=[
+  {t:"Your voice is my safe zone",b:"Every ‘let’s push duo’ feels like home with you."},
+  {t:"From ping to promise",b:"Lag hota hai sab jagah, par tum par mera dil smooth chalta hai."},
+  {t:"Clutch queen",b:"Jab tum knock hoti ho, mera dil revive kit jaisa kaam karta hai."},
+  {t:"Only drop I need",b:"AWM chahiye, par tumhare bina match adhura hai."},
+  {t:"Circle shrink, love grow",b:"Zone chhota hota gaya, par tum mere aur kareeb aati gayi."}
+];
+const cardsWrap=document.getElementById('cards');
+function renderLines(lines){
+  cardsWrap.innerHTML='';
+  lines.forEach(l=>{
+    const d=document.createElement('div');
+    d.className='card';
+    d.innerHTML=`<h3>${l.t}</h3><p>${l.b}</p>`;
+    cardsWrap.appendChild(d);
+  });
+}
+function loadCustom(){
+  const raw=localStorage.getItem('customLines');
+  if(!raw){renderLines(defaultLines);return}
+  try{
+    const arr=JSON.parse(raw);
+    if(Array.isArray(arr)&&arr.length){
+      renderLines(arr.slice(0,6));
+    }else renderLines(defaultLines);
+  }catch{renderLines(defaultLines)}
+}
+loadCustom();
+
+const editor=document.getElementById('editor');
+const openEditor=document.getElementById('openEditor');
+const cancelEdit=document.getElementById('cancelEdit');
+const saveLines=document.getElementById('saveLines');
+const linesInput=document.getElementById('linesInput');
+
+openEditor.addEventListener('click',()=>{
+  const raw=localStorage.getItem('customLines');
+  let txt='';
+  if(raw){
+    try{
+      const arr=JSON.parse(raw);
+      txt=arr.map(o=>`${o.t} — ${o.b}`).join('\n');
+    }catch{txt=''}
+  }else{
+    txt=defaultLines.map(o=>`${o.t} — ${o.b}`).join('\n');
+  }
+  linesInput.value=txt;
+  editor.style.display='grid';
+});
+cancelEdit.addEventListener('click',()=>editor.style.display='none');
+saveLines.addEventListener('click',()=>{
+  const lines=linesInput.value.split('\n').map(s=>s.trim()).filter(Boolean).map(s=>{
+    const parts=s.split(' — ');
+    return {t:(parts[0]||'Line'),b:(parts[1]||'')};
+  });
+  if(lines.length){
+    localStorage.setItem('customLines',JSON.stringify(lines));
+    renderLines(lines.slice(0,6));
+  }
+  editor.style.display='none';
+});
+
+const form=document.getElementById('loveForm');
+form.addEventListener('submit',()=>{
+  const burst=20;
+  for(let i=0;i<burst;i++){
+    const h=document.createElement('div');
+    h.className='heart';
+    h.style.background='hsl('+(330+Math.random()*40)+' 90% 60%)';
+    h.style.left='50%';h.style.bottom='10%';
+    h.style.animationDuration=(6+Math.random()*5)+'s';
+    h.style.animationDelay=(-Math.random()*2)+'s';
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),8000);
+  }
+});
+</script>
+</body>
+</html>
